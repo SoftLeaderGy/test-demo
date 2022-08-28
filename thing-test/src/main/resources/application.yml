@@ -1,0 +1,11 @@
+server:
+  port: 9901
+  servlet:
+    context-path: /thing-test
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo_test?connectTimeout=3000&socketTimeout=4000&autoReconnect=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: root123456
+
