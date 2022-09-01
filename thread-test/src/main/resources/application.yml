@@ -1,0 +1,11 @@
+server:
+  port: 9902
+  servlet:
+    context-path: /thread-test
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://yang.gunveda.top:3306/thread?connectTimeout=3000&socketTimeout=4000&autoReconnect=true&useSSL=false&serverTimezone=UTC
+    username: root
+    password: Yang_3602
+
