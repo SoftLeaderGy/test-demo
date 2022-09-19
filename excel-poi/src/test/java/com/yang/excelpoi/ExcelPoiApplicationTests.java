@@ -10,6 +10,12 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.joda.time.DateTime;
@@ -92,6 +98,82 @@ class ExcelPoiApplicationTests {
 		// 关闭流
 		fileOutputStream.close();
 		log.info("文件生成完毕！");
+	}
+
+
+	/**
+	 * 测试大数据写入
+	 */
+	@Test
+	@SneakyThrows
+	public void test03BigDataExcelWrite(){
+		long strTime = System.currentTimeMillis();
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		HSSFSheet sheet = workbook.createSheet();
+		for (int rowNum = 0; rowNum < 65536; rowNum++) {
+			HSSFRow row = sheet.createRow(rowNum);
+			for (int celNum = 0; celNum < 10; celNum++) {
+				HSSFCell cell = row.createCell(celNum);
+				cell.setCellValue(celNum);
+			}
+		}
+		FileOutputStream fileOutputStream = new FileOutputStream(PATH + "/批量写入03版本.xls");
+		workbook.write(fileOutputStream);
+		fileOutputStream.close();
+		long endTime = System.currentTimeMillis();
+		log.info("使用时间为： {}",((double)(endTime-strTime)/1000));
+	}
+
+
+	/**
+	 * 测试大数据写入
+	 */
+	@Test
+	@SneakyThrows
+	public void test07BigDataExcelWrite(){
+		long strTime = System.currentTimeMillis();
+		XSSFWorkbook workbook = new XSSFWorkbook();
+		XSSFSheet sheet = workbook.createSheet();
+		for (int rowNum = 0; rowNum < 65536; rowNum++) {
+			XSSFRow row = sheet.createRow(rowNum);
+			for (int celNum = 0; celNum < 10; celNum++) {
+				XSSFCell cell = row.createCell(celNum);
+				cell.setCellValue(celNum);
+			}
+		}
+		FileOutputStream fileOutputStream = new FileOutputStream(PATH + "/批量写入07版本.xls");
+		workbook.write(fileOutputStream);
+		fileOutputStream.close();
+		long endTime = System.currentTimeMillis();
+		log.info("使用时间为： {}",((double)(endTime-strTime)/1000));
+	}
+
+
+
+	/**
+	 * 测试SXSSFWorkbook
+	 * 测试大数据写入
+	 */
+	@Test
+	@SneakyThrows
+	public void test07BigDataExcelWriteS(){
+		long strTime = System.currentTimeMillis();
+		SXSSFWorkbook workbook = new SXSSFWorkbook();
+		SXSSFSheet sheet = workbook.createSheet();
+		for (int rowNum = 0; rowNum < 65536; rowNum++) {
+			SXSSFRow row = sheet.createRow(rowNum);
+			for (int celNum = 0; celNum < 10; celNum++) {
+				SXSSFCell cell = row.createCell(celNum);
+				cell.setCellValue(celNum);
+			}
+		}
+		FileOutputStream fileOutputStream = new FileOutputStream(PATH + "/批量写入07S版本.xls");
+		workbook.write(fileOutputStream);
+		fileOutputStream.close();
+		// 清除临时文件
+		workbook.dispose();
+		long endTime = System.currentTimeMillis();
+		log.info("使用时间为： {}",((double)(endTime-strTime)/1000));
 	}
 
 }
