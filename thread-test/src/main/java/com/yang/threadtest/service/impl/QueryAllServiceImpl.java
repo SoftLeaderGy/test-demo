@@ -123,4 +123,34 @@ public class QueryAllServiceImpl implements QueryAllService {
         log.info("多线程使用时间 ====》 {}",(System.currentTimeMillis()-startTime)/1000);
         return intfCallLogCS;
     }
+
+
+    @Override
+    @SneakyThrows
+    public String queryAllListAsyncTestThrows(QueryAllInDTO queryAllInDTO) {
+        try {
+            List<Future<Boolean>> futures = new ArrayList<>();
+            for (int i = 0; i < 2; i++) {
+                Future<Boolean> booleanFuture = queryTaskService.queryAllListForAsyncTestThrows();
+                futures.add(booleanFuture);
+            }
+            int num = 0;
+            while (num != futures.size()){
+                for (Future<Boolean> future : futures) {
+                    if (future.isDone()){
+                        try {
+                            System.out.println(future.get());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        ++num;
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return "123";
+    }
 }
+

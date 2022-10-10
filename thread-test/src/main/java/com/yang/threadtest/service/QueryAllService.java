@@ -18,5 +18,7 @@ public interface QueryAllService {
     List<IntfCallLogC> queryAllList(QueryAllInDTO queryAllInDTO);
     List<IntfCallLogC> queryAllListAsync(QueryAllInDTO queryAllInDTO);
 
+    String queryAllListAsyncTestThrows(QueryAllInDTO queryAllInDTO);
+
 
 }

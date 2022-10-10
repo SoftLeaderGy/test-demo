@@ -18,4 +18,7 @@ public interface QueryTaskService {
      * @return
      */
     Future<List<IntfCallLogC>> queryAllListForAsync(QueryAllInDTO queryAllInDTO);
+
+
+    Future<Boolean> queryAllListForAsyncTestThrows();
 }

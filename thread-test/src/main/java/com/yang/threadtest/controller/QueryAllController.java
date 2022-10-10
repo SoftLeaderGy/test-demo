@@ -57,4 +57,10 @@ public class QueryAllController {
     public List<IntfCallLogC> queryAllListForAsnyc(@RequestBody QueryAllInDTO queryAllInDTO){
         return queryAllService.queryAllListAsync(queryAllInDTO);
     }
+
+    @RequestMapping("/queryAllListAsyncTestThrows")
+    @SneakyThrows
+    public String queryAllListAsyncTestThrows(@RequestBody QueryAllInDTO queryAllInDTO){
+        return queryAllService.queryAllListAsyncTestThrows(queryAllInDTO);
+    }
 }

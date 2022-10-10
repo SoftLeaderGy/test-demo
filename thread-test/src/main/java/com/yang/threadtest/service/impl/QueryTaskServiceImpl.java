@@ -6,6 +6,7 @@ import com.yang.threadtest.dao.QueryAllMapper;
 import com.yang.threadtest.dto.IntfCallLogC;
 import com.yang.threadtest.dto.QueryAllInDTO;
 import com.yang.threadtest.service.QueryTaskService;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
@@ -41,5 +42,14 @@ public class QueryTaskServiceImpl implements QueryTaskService {
         log.info("页数 {}",queryAllInDTO.getPageNo());
         IPage<IntfCallLogC> intfCallLogCIPage = queryAllMapper.selectPage(intfCallLogCPage, null);
         return new AsyncResult<>(intfCallLogCIPage.getRecords());
+    }
+
+    @SneakyThrows
+    @Override
+    @Async("taskQueryExecutor")
+    public Future<Boolean> queryAllListForAsyncTestThrows() {
+        Thread.sleep(1000);
+        int a = 1/0;
+        return new AsyncResult<>(true);
     }
 }
