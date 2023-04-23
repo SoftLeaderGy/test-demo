@@ -23,4 +23,9 @@ public class ThingTestController {
     public Integer upName(@RequestBody UserDTO userDTO) {
         return thingTestService.upName(userDTO);
     }
+
+    @PostMapping("/test")
+    public UserDTO query(@RequestBody UserDTO userDTO) {
+        return userDTO;
+    }
 }
