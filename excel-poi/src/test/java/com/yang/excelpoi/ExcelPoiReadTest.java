@@ -1,7 +1,9 @@
 package com.yang.excelpoi;
 
+import com.alibaba.excel.util.IoUtils;
 import com.alibaba.fastjson.JSONObject;
 import lombok.SneakyThrows;
+import org.apache.commons.compress.utils.IOUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.xssf.usermodel.XSSFCell;
@@ -10,8 +12,9 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.joda.time.DateTime;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
 
-import java.io.FileInputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -110,6 +113,18 @@ public class ExcelPoiReadTest {
             }
         }
         fileInputStream.close();
+    }
+    @Test
+    @SneakyThrows
+    public void test(){
+        ClassPathResource resource = new ClassPathResource("file/1.jpg");
+        String absolutePath = resource.getFile().getAbsolutePath();
+        System.out.println(absolutePath);
+        FileInputStream fileInputStream = new FileInputStream(absolutePath);
+//        OutputStream outputStream = new FileOutputStream(resource.getFile());
+//        IOUtils.copy(fileInputStream,outputStream);
+        byte[] bytes = IOUtils.toByteArray(fileInputStream);
+        System.out.println(bytes.toString());
     }
 
 }
